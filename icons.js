@@ -1,6 +1,6 @@
 
 function loadSolarIcons(options = {}) {
-    const JSON_URL = options.url || 'icons.json';
+    const JSON_URL = options.url || 'https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.json';
     const LOG_PREFIX = '[ICONS]';
 
     const allIconElements = document.querySelectorAll('i[name], i[class]');
