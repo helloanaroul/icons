@@ -12,7 +12,7 @@ function loadSolarIcons(options = {}) {
 
     console.group(`${LOG_PREFIX} Initializing...`);
     console.groupCollapsed('%c[ICONS] Developer Information', 'color:#64748b;font-size:10px;font-weight:normal;');
-    console.log('%c  Developer       : Anaroul Hasan\n  GitHub          : github.com/helloanaroul/icons\n  Usage           : https://github.com/helloanaroul/icons/blob/main/README.md\n  jsdelivr        : https://www.jsdelivr.com/package/npm/solar-icons\n  Icon Webpage    : https://icones.js.org/collection/solar', 'color:#E87F24;font-size:8px;line-height:1.8;');
+    console.log('%c  Developer       : Anaroul Hasan\n  GitHub          : github.com/helloanaroul/icons\n  Usage           : https://github.com/helloanaroul/icons/blob/main/README.md\n  jsdelivr        : https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.js\n  Icon Webpage    : https://icones.js.org/collection/solar', 'color:#E87F24;font-size:8px;line-height:1.8;');
     console.groupEnd();
     console.groupCollapsed('%c[ICONS] Usage Examples', 'color:#64748b;font-size:8px;font-weight:normal;');
     console.log(
