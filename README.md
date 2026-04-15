@@ -23,10 +23,10 @@ A lightweight, zero-dependency JavaScript loader that dynamically renders [Solar
 
 ```html
 <!-- Production (recommended) -->
-<script src="icons.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.min.js"></script>
 
 <!-- Development (for debugging) -->
-<script src="icons.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.js"></script>
 ```
 
 **2. Use icons anywhere with `<i>` tags:**
@@ -77,40 +77,6 @@ Solar icons follow the pattern: `{name}-{style}`
 
 ---
 
-## 🛠 Advanced Usage
-
-You can call `loadSolarIcons()` manually with custom options:
-
-```js
-loadSolarIcons({
-    url: '/assets/icons.json'   // custom path to icons.json
-});
-```
-
----
-
-## 🖥 Console Output
-
-When the script runs, you'll see detailed logs in the browser DevTools console:
-
-```
-☀ Solar Icons  v2.0
-  Author : Anaroul Hasan
-  GitHub : github.com/helloanaroul/icons
-
-▼ [SolarIcons] Initializing...
-  [SolarIcons] Found 3 potential icon element(s).
-  [SolarIcons] Fetching: icons.json
-  [SolarIcons] icons.json loaded (200 OK)
-  [SolarIcons] Parsed — 9000 icons, 250 aliases, prefix: "solar"
-  [SolarIcons] Done — ✓ 3 rendered | ⚠ 0 not found | ⊘ 0 skipped
-  [SolarIcons] Total load time: 42ms
-```
-
-> **Tip:** Use `console.debug` in DevTools (enable "Verbose" level) to see per-icon render logs.
-
----
-
 ## ⚡ Performance Notes
 
 - **Early exit:** If no `<i>` elements are found on the page, `icons.json` is never fetched.
@@ -140,7 +106,7 @@ When the script runs, you'll see detailed logs in the browser DevTools console:
     <i class="solar-heart-bold"></i>
     <i class="settings-broken"></i>
 
-    <script src="icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.min.js"></script>
 </body>
 </html>
 ```
