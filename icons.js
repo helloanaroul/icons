@@ -1,6 +1,10 @@
-
 function loadSolarIcons(options = {}) {
-    const JSON_URL = options.url || 'https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.json';
+    const JSON_URLS = [
+        options.url || null,
+        'icons.json',
+        'https://cdn.jsdelivr.net/gh/helloanaroul/icons@main/icons.json',
+        'https://raw.githubusercontent.com/helloanaroul/icons/main/icons.json'
+    ].filter(Boolean);
     const LOG_PREFIX = '[ICONS]';
 
     const allIconElements = document.querySelectorAll('i[name], i[class]');
@@ -12,7 +16,7 @@ function loadSolarIcons(options = {}) {
 
     console.group(`${LOG_PREFIX} Initializing...`);
     console.groupCollapsed('%c[ICONS] Developer Information', 'color:#64748b;font-size:10px;font-weight:normal;');
-    console.log('%c  Developer       : Anaroul Hasan\n  GitHub          : github.com/helloanaroul/icons\n  Usage           : https://github.com/helloanaroul/icons/blob/main/README.md\n  jsdelivr        : https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.js\n  Icon Webpage    : https://icones.js.org/collection/solar', 'color:#E87F24;font-size:8px;line-height:1.8;');
+    console.log('%c  Developer       : Anaroul Hasan\n  GitHub          : github.com/helloanaroul/icons\n  Usage           : https://github.com/helloanaroul/icons/blob/main/README.md\n  jsdelivr        : https://www.jsdelivr.com/package/npm/solar-icons\n  Icon Webpage    : https://icones.js.org/collection/solar', 'color:#E87F24;font-size:8px;line-height:1.8;');
     console.groupEnd();
     console.groupCollapsed('%c[ICONS] Usage Examples', 'color:#64748b;font-size:8px;font-weight:normal;');
     console.log(
@@ -28,16 +32,21 @@ function loadSolarIcons(options = {}) {
     console.groupEnd();
     console.info(`${LOG_PREFIX} Found ${allIconElements.length} potential icon element(s).`);
     console.time(`${LOG_PREFIX} Total load time`);
-    console.log(`${LOG_PREFIX} Fetching: ${JSON_URL}`);
+    function fetchFirst(urls) {
+        let p = Promise.reject();
+        for (const url of urls) {
+            p = p.catch(() => fetch(url).then(res => {
+                if (!res.ok) throw new Error(`HTTP ${res.status} — ${res.statusText}`);
+                console.log(`${LOG_PREFIX} icons.json loaded (${res.status} OK) — ${url}`);
+                return res.json();
+            }));
+        }
+        return p;
+    }
 
-    fetch(JSON_URL)
-        .then(res => {
-            if (!res.ok) {
-                throw new Error(`HTTP ${res.status} — ${res.statusText}`);
-            }
-            console.log(`${LOG_PREFIX} icons.json loaded (${res.status} OK)`);
-            return res.json();
-        })
+    console.log(`${LOG_PREFIX} Trying URLs: ${JSON_URLS.join(', ')}`);
+
+    fetchFirst(JSON_URLS)
         .then(data => {
             const prefix = data.prefix || 'solar';
             const icons = data.icons || {};
