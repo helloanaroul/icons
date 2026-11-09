@@ -1,5 +1,5 @@
 /* Solar Icons by Toolsax — Service Worker for Offline PWA */
-const VERSION = 'v1.0.1';
+const VERSION = 'v1.0.0';
 const STATIC_CACHE = `solar-static-${VERSION}`;
 const RUNTIME_CACHE = `solar-runtime-${VERSION}`;
 

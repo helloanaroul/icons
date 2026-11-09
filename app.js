@@ -1,4 +1,4 @@
-const ICON_JSON = 'https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons-v2.json';
+const ICON_JSON = 'https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.json';
 const LIB = 'https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.min.js';
 const DB_URL = 'https://heelo-chat-default-rtdb.asia-southeast1.firebasedatabase.app';
 const STYLES = ['all', 'bold', 'duotone', 'broken', 'line-duotone', 'linear', 'outline'];
@@ -265,7 +265,7 @@ const buildDOM = () => {
 const renderIconByName = (name) => {
   const icon = state.all.find(i => i.key === name);
   if (!icon) return '';
-  return `<svg viewBox="0 0 ${icon.width || 24} ${icon.height || 24}" fill="currentColor">${icon.body}</svg>`;
+  return `<svg viewBox="0 0 24 24" fill="currentColor">${icon.body}</svg>`;
 };
 
 const applyTheme = (dark) => {
@@ -363,7 +363,7 @@ const loadMore = () => {
   grid.insertAdjacentHTML('beforeend', batch.map((icon, i) => `
     <button class="icon-cell bordered p-2 hover-bg flex items-center justify-center aspect-square"
       data-key="${icon.key}" title="${icon.key}" style="animation-delay:${Math.min(i * 4, 200)}ms">
-      <svg viewBox="0 0 ${icon.width || 24} ${icon.height || 24}" fill="currentColor">${icon.body}</svg>
+      <svg viewBox="0 0 24 24" fill="currentColor">${icon.body}</svg>
     </button>
   `).join(''));
 
@@ -506,45 +506,10 @@ const loadIcons = async () => {
   const text = await res.text();
   state.jsonBytes = new Blob([text]).size;
   const data = JSON.parse(text);
-  
-  let rawIcons = {};
-  if (Array.isArray(data)) {
-    data.forEach(item => {
-      if (item && item.name) {
-        const key = item.name.includes(':') ? item.name.split(':')[1] : item.name;
-        const svgMatch = item.svg ? item.svg.match(/<svg[^>]*>([\s\S]*?)<\/svg>/i) : null;
-        const widthMatch = item.svg ? item.svg.match(/width="([^"]+)"/i) : null;
-        const heightMatch = item.svg ? item.svg.match(/height="([^"]+)"/i) : null;
-        
-        rawIcons[key] = {
-          body: svgMatch ? svgMatch[1] : (item.svg || ''),
-          width: widthMatch ? parseInt(widthMatch[1], 10) : 24,
-          height: heightMatch ? parseInt(heightMatch[1], 10) : 24
-        };
-      }
-    });
-  } else {
-    const iconsObj = data.icons || data;
-    Object.entries(iconsObj).forEach(([key, val]) => {
-      if (typeof val === 'string') {
-        rawIcons[key] = { body: val, width: 24, height: 24 };
-      } else if (val && typeof val === 'object') {
-        rawIcons[key] = {
-          body: val.body || '',
-          width: val.width || 24,
-          height: val.height || 24
-        };
-      }
-    });
-  }
-
-  state.all = Object.entries(rawIcons).map(([key, val]) => ({
+  state.all = Object.entries(data.icons || data).map(([key, val]) => ({
     key,
-    body: val.body,
-    width: val.width,
-    height: val.height
+    body: typeof val === 'string' ? val : (val.body || '')
   }));
-
   renderFilters();
   applyFilter();
   router();
