@@ -15,7 +15,7 @@
 <meta name="language" content="English">
 <link rel="canonical" href="https://icons.helloanaroul.workers.dev/">
 
-<!-- PWA / Mobile -->
+<!-- PWA / Mobile / Status Bar -->
 <meta name="theme-color" content="#000000">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -123,18 +123,6 @@
 }
 </script>
 
-<!-- JSON-LD: Organization -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Toolsax",
-  "url": "https://icons.helloanaroul.workers.dev/",
-  "logo": "https://icons.helloanaroul.workers.dev/icons/icon-512x512.png",
-  "sameAs": []
-}
-</script>
-
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,17 +137,17 @@ tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Bricolage Grotesqu
 <body class="h-screen overflow-hidden flex flex-col" style="font-family:'Bricolage Grotesque',sans-serif">
 <div id="app"></div>
 
-<!-- PWA Service Worker Registration -->
+<!-- PWA Service Worker Registration for Offline Mode -->
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js', { scope: '/' })
-      .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
-      .catch(err => console.warn('[PWA] Service worker registration failed:', err));
+      .then(reg => console.log('[PWA] Service Worker Registered successfully! Offline mode is active.'))
+      .catch(err => console.error('[PWA] Service Worker Failed:', err));
   });
 }
 
-// Optional: capture install prompt
+// PWA Install Prompt
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
@@ -168,7 +156,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
   window.dispatchEvent(new CustomEvent('pwa-install-available'));
 });
 window.addEventListener('appinstalled', () => {
-  console.log('[PWA] App installed');
+  console.log('[PWA] App installed successfully!');
   deferredPrompt = null;
 });
 </script>
