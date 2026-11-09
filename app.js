@@ -1,4 +1,4 @@
-const ICON_JSON = 'https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.json';
+const ICON_JSON = 'https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons-v2.json';
 const LIB = 'https://cdn.jsdelivr.net/gh/helloanaroul/icons@refs/heads/main/icons.min.js';
 const DB_URL = 'https://heelo-chat-default-rtdb.asia-southeast1.firebasedatabase.app';
 const STYLES = ['all', 'bold', 'duotone', 'broken', 'line-duotone', 'linear', 'outline'];
